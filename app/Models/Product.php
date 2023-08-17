@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Comment;
@@ -22,6 +23,44 @@ class Product extends Model
     */
 
     protected $fillable = ['name','price'];
+
+    // funciones flecha -> arrow functions with fn and wihtout return
+    /*protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => strtoupper($value),
+            set: fn (string $value) => strtolower($value),
+        );
+    }*/
+
+    // funciones anonimas -> anonymous functions with function and return
+    /*protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: function (string $value) { return strtoupper($value); },
+            set: function (string $value) { return strtolower($value); },
+        );
+    }*/
+
+    // funciones anonimas -> anonymous functions with function and return -> without parameter name
+    /*protected function name(): Attribute
+    {
+        return Attribute::make(
+            function (string $value) { return strtoupper($value); },
+            function (string $value) { return strtolower($value); },
+        );
+    }*/
+
+    // funciones anonimas -> anonymous functions with function and return -> without parameter name, with functions above
+    protected function name(): Attribute
+    {
+        $getFn = function (string $value) { return strtoupper($value); };
+        $setFn = function (string $value) { return strtoupper($value); };
+        return Attribute::make(
+            $getFn,
+            $setFn,
+        );
+    }
 
     public function getId(): int
     {
