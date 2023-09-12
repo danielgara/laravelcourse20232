@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Comment;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 
 class Product extends Model
@@ -23,6 +24,14 @@ class Product extends Model
     */
 
     protected $fillable = ['name','price'];
+
+    public static function validate(Request $request) : void 
+    {
+        $request->validate([
+            "name" => "required",
+            "price" => "required"
+        ]);
+    }
 
     // funciones flecha -> arrow functions with fn and wihtout return
     /*protected function name(): Attribute

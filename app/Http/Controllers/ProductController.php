@@ -14,7 +14,7 @@ class ProductController extends Controller
         $viewData["title"] = "Products - Online Store";
         $viewData["subtitle"] =  "List of products";
         $viewData["products"] = Product::all();
-        return view('product.index')->with("viewData", $viewData);
+        return view('product.all')->with("viewData", $viewData);
     }
 
     public function show(string $id) : View
@@ -37,10 +37,7 @@ class ProductController extends Controller
 
     public function save(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $request->validate([
-            "name" => "required",
-            "price" => "required"
-        ]);
+        Product::validate($request);
         Product::create($request->only(["name","price"]));
         return back();
     }
